@@ -48,7 +48,7 @@ function PasswordInput(props) {
 	};
 
 	return (
-		<div>
+		<div id={props?.id}>
 			<label className="form-label" htmlFor={id}>
 				{props.label}
 			</label>

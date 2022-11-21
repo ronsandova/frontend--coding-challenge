@@ -48,7 +48,7 @@ function App() {
 
 	const constructMatchError = (msg) => {
 		if (passwordMatchError) {
-			return {  
+			return {
 				valid: false,
 				errorMsg: msg ? "Passwords do not match" : null,
 			};
@@ -58,31 +58,32 @@ function App() {
 	return (
 		<div className="d-flex justify-content-center">
 			<div className="p-3 password-wrapper">
-				<h1 className="display-6" label="Change Password">Change Password</h1>
+				<h1 className="display-6" label="Change Password">
+					Change Password
+				</h1>
 				<form className="m-1">
-					<div>
-						<PasswordInput
-							required="true"
-							onBlurEvent={handlePasswordBlurEvent}
-              label="Old Password"
-						/>
-					</div>
-					<div>
-						<PasswordInput
-							passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
-							onBlurEvent={handleNewPasswordBlurEvent}
-							matchError={constructMatchError(false)}
-              label="New Password"
-						/>
-					</div>
-					<div>
-						<PasswordInput
-							passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
-							onBlurEvent={handleConfirmPasswordBlurEvent}
-							matchError={constructMatchError(true)}
-              label="Confirm Password"
-						/>
-					</div>
+					<PasswordInput
+						id="oldPassword"
+						required="true"
+						onBlurEvent={handlePasswordBlurEvent}
+						label="Old Password"
+					/>
+
+					<PasswordInput
+						id="newPassword"
+						passwordPattern="(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}"
+						onBlurEvent={handleNewPasswordBlurEvent}
+						matchError={constructMatchError(false)}
+						label="New Password"
+					/>
+					<PasswordInput
+						id="confirmPassword"
+						passwordPattern="/(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}/gm"
+						onBlurEvent={handleConfirmPasswordBlurEvent}
+						matchError={constructMatchError(true)}
+						label="Confirm Password"
+					/>
+
 					<div>
 						<button className="btn btn-outline-secondary m-1">
 							Cancel
