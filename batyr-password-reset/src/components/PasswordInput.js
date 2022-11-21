@@ -60,7 +60,7 @@ function PasswordInput(props) {
 				className={constructClassName()}
 				id={id}
 				aria-invalid={passwordValid.valid}
-				aria-describedBy={errorId}
+				aria-describedby={errorId}
 
 			/>
 			{passwordValid.errorMsg ? (
