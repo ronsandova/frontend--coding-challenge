@@ -40,15 +40,24 @@ function PasswordInput(props) {
         props.onBlurEvent({ password: inputValue, valid: valid });
 	};
 
+	const constructClassName = () => {
+		return `form-control ${passwordValid.valid ? "" : "is-invalid"}`
+	}
+
 	return (
 		<div>
 			<input
-				type="text"
+				type="password"
 				pattern={passwordPattern}
 				required={required ? true : false}
 				onBlur={onBlurHandler}
+				className={constructClassName()}
 			/>
-			{passwordValid.errorMsg ? <p>{passwordValid.errorMsg}</p> : null}
+			{passwordValid.errorMsg ? (
+				<div className="invalid-feedback">
+					{passwordValid.errorMsg}
+				</div>
+			) : null}
 		</div>
 	);
 }

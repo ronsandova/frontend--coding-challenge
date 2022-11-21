@@ -26,10 +26,10 @@ function App() {
 	};
 
 	const handleConfirmPasswordBlurEvent = (event) => {
-		(event.password !== newPassword && event.valid)
+		event.password !== newPassword && event.valid
 			? setPasswordMatchError(true)
 			: setPasswordMatchError(false);
-      
+
 		setFormValid((prevFormValid) => {
 			return {
 				...prevFormValid,
@@ -46,49 +46,56 @@ function App() {
 		);
 	};
 
-  const constructMatchError = (msg) => {
-    if(passwordMatchError) {
-      return {
-        valid: false,
-        errorMsg: msg ? "Passwords do no match" : null
-      }
-    }
-  }
+	const constructMatchError = (msg) => {
+		if (passwordMatchError) {
+			return {
+				valid: false,
+				errorMsg: msg ? "Passwords do not match" : null,
+			};
+		}
+	};
 
 	return (
-		<div>
-			<h1>Change Password</h1>
-			<form>
-				<div>
-					<label>Old Password</label>
-					<PasswordInput
-						required="true"
-						onBlurEvent={handlePasswordBlurEvent}
-					/>
-				</div>
-				<div>
-					<label>New Password</label>
-					<PasswordInput
-						passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
-						onBlurEvent={handleNewPasswordBlurEvent}
-            matchError={constructMatchError(false)}
-					/>
-				</div>
-				<div>
-					<label>Confirm Password</label>
-					<PasswordInput
-						passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
-						onBlurEvent={handleConfirmPasswordBlurEvent}
-            matchError={constructMatchError(true)}
-					/>
-				</div>
-				<div>
-					<button>Cancel</button>
-					<button disabled={!checkFormValid()}>
-						Change Password
-					</button>
-				</div>
-			</form>
+		<div className="d-flex justify-content-center">
+			<div className="w-50 p-3">
+				<h1 className="display-6">Change Password</h1>
+				<form className="m-1">
+					<div>
+						<label className="form-label">Old Password</label>
+						<PasswordInput
+							required="true"
+							onBlurEvent={handlePasswordBlurEvent}
+						/>
+					</div>
+					<div>
+						<label className="form-label">New Password</label>
+						<PasswordInput
+							passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
+							onBlurEvent={handleNewPasswordBlurEvent}
+							matchError={constructMatchError(false)}
+						/>
+					</div>
+					<div>
+						<label className="form-label">Confirm Password</label>
+						<PasswordInput
+							passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
+							onBlurEvent={handleConfirmPasswordBlurEvent}
+							matchError={constructMatchError(true)}
+						/>
+					</div>
+					<div>
+						<button className="btn btn-outline-secondary m-1">
+							Cancel
+						</button>
+						<button
+							className="btn btn-primary m-1"
+							disabled={!checkFormValid()}
+						>
+							Change Password
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	);
 }
