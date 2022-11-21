@@ -7,9 +7,10 @@ function App() {
 		oldPassword: false,
 		newPassword: false,
 		confirmPassword: false,
-    valid: false
+		valid: false,
 	});
 	const [newPassword, setNewPassword] = useState("");
+	const [passwordMatchError, setPasswordMatchError] = useState(false);
 
 	const handlePasswordBlurEvent = (event) => {
 		setFormValid((prevFormValid) => {
@@ -25,10 +26,14 @@ function App() {
 	};
 
 	const handleConfirmPasswordBlurEvent = (event) => {
+		(event.password !== newPassword && event.valid)
+			? setPasswordMatchError(true)
+			: setPasswordMatchError(false);
+      
 		setFormValid((prevFormValid) => {
 			return {
 				...prevFormValid,
-				confirmPassword: event.password == newPassword && event.valid,
+				confirmPassword: event.password === newPassword && event.valid,
 			};
 		});
 	};
@@ -39,8 +44,16 @@ function App() {
 			formValid.newPassword &&
 			formValid.confirmPassword
 		);
-    
 	};
+
+  const constructMatchError = (msg) => {
+    if(passwordMatchError) {
+      return {
+        valid: false,
+        errorMsg: msg ? "Passwords do no match" : null
+      }
+    }
+  }
 
 	return (
 		<div>
@@ -58,6 +71,7 @@ function App() {
 					<PasswordInput
 						passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
 						onBlurEvent={handleNewPasswordBlurEvent}
+            matchError={constructMatchError(false)}
 					/>
 				</div>
 				<div>
@@ -65,11 +79,14 @@ function App() {
 					<PasswordInput
 						passwordPattern="(?=.*\d)(?=.*\w)(?!.*\s).{8,}"
 						onBlurEvent={handleConfirmPasswordBlurEvent}
+            matchError={constructMatchError(true)}
 					/>
 				</div>
 				<div>
 					<button>Cancel</button>
-					<button disabled={!checkFormValid()}>Change Password</button>
+					<button disabled={!checkFormValid()}>
+						Change Password
+					</button>
 				</div>
 			</form>
 		</div>

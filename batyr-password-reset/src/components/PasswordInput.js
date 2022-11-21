@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function PasswordInput(props) {
 	const [passwordValid, setPasswordValid] = useState({
@@ -7,6 +7,12 @@ function PasswordInput(props) {
 	});
 	const passwordPattern = props?.passwordPattern;
 	const required = props?.required;
+
+	useEffect(() => {
+		if(props.matchError) {
+			setPasswordValid(props.matchError)
+		}
+	}, [props])
 
 	const onBlurHandler = (event) => {
 		const inputValue = event.target.value;
@@ -22,7 +28,7 @@ function PasswordInput(props) {
 
 		if (required) {
 			setPasswordValid({
-				valid: inputValue > 0,
+				valid: inputValue.length > 0,
 				errorMsg: "Password can not be blank",
 			});
 		}
