@@ -48,7 +48,7 @@ function App() {
 
 	const constructMatchError = (msg) => {
 		if (passwordMatchError) {
-			return {
+			return {  
 				valid: false,
 				errorMsg: msg ? "Passwords do not match" : null,
 			};
@@ -57,7 +57,7 @@ function App() {
 
 	return (
 		<div className="d-flex justify-content-center">
-			<div className="w-50 p-3">
+			<div className="p-3 password-wrapper">
 				<h1 className="display-6">Change Password</h1>
 				<form className="m-1">
 					<div>
