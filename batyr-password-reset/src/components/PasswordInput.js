@@ -16,24 +16,28 @@ function PasswordInput(props) {
 
 	const onBlurHandler = (event) => {
 		const inputValue = event.target.value;
+		let valid = false
 
 		if (passwordPattern) {
 			const passwordRegex = new RegExp(passwordPattern);
+			valid = passwordRegex.test(inputValue);
 			setPasswordValid({
-				valid: passwordRegex.test(inputValue),
-				errorMsg:
-					"Password must be 8 or more characters and a mixture of numbers and letters",
+				valid: valid,
+				errorMsg: valid
+					? ""
+					: "Password must be 8 or more characters and a mixture of numbers and letters",
 			});
 		}
 
 		if (required) {
+			valid = inputValue.length > 0
 			setPasswordValid({
-				valid: inputValue.length > 0,
-				errorMsg: "Password can not be blank",
+				valid: valid,
+				errorMsg: valid ? "" : "Password can not be blank",
 			});
 		}
 
-        props.onBlurEvent({ password: inputValue, valid: passwordValid.valid });
+        props.onBlurEvent({ password: inputValue, valid: valid });
 	};
 
 	return (
@@ -44,7 +48,7 @@ function PasswordInput(props) {
 				required={required ? true : false}
 				onBlur={onBlurHandler}
 			/>
-			{!passwordValid.valid ? <p>{passwordValid.errorMsg}</p> : null}
+			{passwordValid.errorMsg ? <p>{passwordValid.errorMsg}</p> : null}
 		</div>
 	);
 }
