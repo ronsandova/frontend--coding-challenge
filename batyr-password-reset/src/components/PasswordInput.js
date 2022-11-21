@@ -26,6 +26,8 @@ function PasswordInput(props) {
 				errorMsg: "Password can not be blank",
 			});
 		}
+
+        props.onBlurEvent({ password: inputValue, valid: passwordValid.valid });
 	};
 
 	return (
