@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 
 function PasswordInput(props) {
 	const [passwordValid, setPasswordValid] = useState({
 		valid: true,
 		errorMsg: "",
 	});
+
 	const passwordPattern = props?.passwordPattern;
 	const required = props?.required;
+	const id = useId();
+	const errorId = useId();
 
 	useEffect(() => {
-		if(props.matchError) {
-			setPasswordValid(props.matchError)
+		if (props.matchError) {
+			setPasswordValid(props.matchError);
 		}
-	}, [props])
+	}, [props]);
 
 	const onBlurHandler = (event) => {
 		const inputValue = event.target.value;
-		let valid = false
+		let valid = false;
 
 		if (passwordPattern) {
 			const passwordRegex = new RegExp(passwordPattern);
@@ -30,33 +33,40 @@ function PasswordInput(props) {
 		}
 
 		if (required) {
-			valid = inputValue.length > 0
+			valid = inputValue.length > 0;
 			setPasswordValid({
 				valid: valid,
 				errorMsg: valid ? "" : "Password can not be blank",
 			});
 		}
 
-        props.onBlurEvent({ password: inputValue, valid: valid });
+		props.onBlurEvent({ password: inputValue, valid: valid });
 	};
 
 	const constructClassName = () => {
-		return `form-control ${passwordValid.valid ? "" : "is-invalid"}`
-	}
+		return `form-control ${passwordValid.valid ? "" : "is-invalid"}`;
+	};
 
 	return (
 		<div>
+			<label className="form-label" htmlFor={id}>
+				{props.label}
+			</label>
 			<input
 				type="password"
 				pattern={passwordPattern}
 				required={required ? true : false}
 				onBlur={onBlurHandler}
 				className={constructClassName()}
+				id={id}
+				aria-invalid={passwordValid.valid}
+				aria-describedBy={errorId}
+
 			/>
 			{passwordValid.errorMsg ? (
-				<div className="invalid-feedback">
-					{passwordValid.errorMsg}
-				</div>
+				<label className="invalid-feedback" id={errorId}>
+					{passwordValid.errorMsg}{" "}
+				</label>
 			) : null}
 		</div>
 	);
