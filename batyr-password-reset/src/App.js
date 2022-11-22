@@ -29,7 +29,7 @@ function App() {
 		event.password !== newPassword && event.valid
 			? setPasswordMatchError(true)
 			: setPasswordMatchError(false);
-
+			
 		setFormValid((prevFormValid) => {
 			return {
 				...prevFormValid,
@@ -78,7 +78,7 @@ function App() {
 					/>
 					<PasswordInput
 						id="confirmPassword"
-						passwordPattern="/(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}/gm"
+						passwordPattern="(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{8,}"
 						onBlurEvent={handleConfirmPasswordBlurEvent}
 						matchError={constructMatchError(true)}
 						label="Confirm Password"
