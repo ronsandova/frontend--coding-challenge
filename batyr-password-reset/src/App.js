@@ -91,6 +91,7 @@ function App() {
 						<button
 							className="btn btn-primary m-1"
 							disabled={!checkFormValid()}
+							id="passwordResetConfirm"
 						>
 							Change Password
 						</button>
