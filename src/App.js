@@ -1,5 +1,6 @@
 import './App.css';
 import ChangePasswordForm from './components/ChangePasswordForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
